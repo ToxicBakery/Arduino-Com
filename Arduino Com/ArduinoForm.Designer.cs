@@ -50,12 +50,15 @@
             this.btnClearConsole = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBoxConnection = new System.Windows.Forms.GroupBox();
+            this.btnRefresh = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnRefresh = new System.Windows.Forms.Button();
+            this.comboBoxBaudRate = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.groupBoxConsole.SuspendLayout();
             this.grpBoxConsoleOptions.SuspendLayout();
             this.grpBoxAdvancedSend.SuspendLayout();
@@ -65,7 +68,7 @@
             // 
             // btnConnect
             // 
-            this.btnConnect.Location = new System.Drawing.Point(6, 120);
+            this.btnConnect.Location = new System.Drawing.Point(6, 177);
             this.btnConnect.Name = "btnConnect";
             this.btnConnect.Size = new System.Drawing.Size(122, 23);
             this.btnConnect.TabIndex = 0;
@@ -76,7 +79,7 @@
             // lstComPorts
             // 
             this.lstComPorts.FormattingEnabled = true;
-            this.lstComPorts.Location = new System.Drawing.Point(6, 19);
+            this.lstComPorts.Location = new System.Drawing.Point(6, 32);
             this.lstComPorts.Name = "lstComPorts";
             this.lstComPorts.Size = new System.Drawing.Size(122, 95);
             this.lstComPorts.TabIndex = 1;
@@ -84,7 +87,7 @@
             // btnDisconnect
             // 
             this.btnDisconnect.Enabled = false;
-            this.btnDisconnect.Location = new System.Drawing.Point(6, 149);
+            this.btnDisconnect.Location = new System.Drawing.Point(6, 206);
             this.btnDisconnect.Name = "btnDisconnect";
             this.btnDisconnect.Size = new System.Drawing.Size(122, 23);
             this.btnDisconnect.TabIndex = 2;
@@ -300,16 +303,29 @@
             // 
             this.groupBoxConnection.AutoSize = true;
             this.groupBoxConnection.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.groupBoxConnection.Controls.Add(this.label4);
+            this.groupBoxConnection.Controls.Add(this.label3);
+            this.groupBoxConnection.Controls.Add(this.comboBoxBaudRate);
             this.groupBoxConnection.Controls.Add(this.btnRefresh);
             this.groupBoxConnection.Controls.Add(this.lstComPorts);
             this.groupBoxConnection.Controls.Add(this.btnConnect);
             this.groupBoxConnection.Controls.Add(this.btnDisconnect);
             this.groupBoxConnection.Location = new System.Drawing.Point(12, 27);
             this.groupBoxConnection.Name = "groupBoxConnection";
-            this.groupBoxConnection.Size = new System.Drawing.Size(134, 220);
+            this.groupBoxConnection.Size = new System.Drawing.Size(134, 277);
             this.groupBoxConnection.TabIndex = 9;
             this.groupBoxConnection.TabStop = false;
             this.groupBoxConnection.Text = "Connection";
+            // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Location = new System.Drawing.Point(6, 235);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(122, 23);
+            this.btnRefresh.TabIndex = 3;
+            this.btnRefresh.Text = "Refresh";
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // menuStrip1
             // 
@@ -352,15 +368,44 @@
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
-            // btnRefresh
+            // comboBoxBaudRate
             // 
-            this.btnRefresh.Location = new System.Drawing.Point(6, 178);
-            this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(122, 23);
-            this.btnRefresh.TabIndex = 3;
-            this.btnRefresh.Text = "Refresh";
-            this.btnRefresh.UseVisualStyleBackColor = true;
-            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            this.comboBoxBaudRate.FormattingEnabled = true;
+            this.comboBoxBaudRate.Items.AddRange(new object[] {
+            "300",
+            "600",
+            "1200",
+            "2400",
+            "4800",
+            "9600",
+            "14400",
+            "19200",
+            "28800",
+            "38400",
+            "57600",
+            "115200"});
+            this.comboBoxBaudRate.Location = new System.Drawing.Point(6, 150);
+            this.comboBoxBaudRate.Name = "comboBoxBaudRate";
+            this.comboBoxBaudRate.Size = new System.Drawing.Size(122, 21);
+            this.comboBoxBaudRate.TabIndex = 11;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 134);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(58, 13);
+            this.label3.TabIndex = 12;
+            this.label3.Text = "Baud Rate";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 16);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(26, 13);
+            this.label4.TabIndex = 13;
+            this.label4.Text = "Port";
             // 
             // ArduinoForm
             // 
@@ -383,6 +428,7 @@
             this.grpBoxAdvancedSend.ResumeLayout(false);
             this.grpBoxAdvancedSend.PerformLayout();
             this.groupBoxConnection.ResumeLayout(false);
+            this.groupBoxConnection.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -420,6 +466,9 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtBoxData;
         private System.Windows.Forms.ListBox lstConsole;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ComboBox comboBoxBaudRate;
     }
 }
 

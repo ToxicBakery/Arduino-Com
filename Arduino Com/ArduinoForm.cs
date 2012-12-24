@@ -24,6 +24,7 @@ namespace ArduinoCom
             InitializeComponent();
             fillComList();
             aboutBox = new AboutBox();
+            comboBoxBaudRate.SelectedIndex = comboBoxBaudRate.FindStringExact("9600");
             lstDataTypes.SetSelected(0, true);
             this.FormClosing += formClosing;
         }
@@ -80,7 +81,15 @@ namespace ArduinoCom
             foreach (String port in SerialPort.GetPortNames())
                 lstComPorts.Items.Add(port);
 
-            lstComPorts.SetSelected(0, true);
+            if (lstComPorts.Items.Count > 0)
+            {
+                lstComPorts.SetSelected(0, true);
+                btnConnect.Enabled = true;
+            }
+            else
+            {
+                btnConnect.Enabled = false;
+            }
         }
 
         private void btnConnect_Click(object sender, System.EventArgs e)
@@ -94,7 +103,7 @@ namespace ArduinoCom
                 try
                 {
                     String comPort = lstComPorts.SelectedItem.ToString();
-                    int baud = 9600;
+                    int baud = Int32.Parse(comboBoxBaudRate.SelectedItem.ToString());
                     serialPort = new SerialPort(comPort, baud);
                     serialPort.Open();
                     UpdateConsole("Connected to " + comPort + " at " + baud);
