@@ -1,0 +1,13 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Arduino-Com\ArduinoComWindow.cs">
+    <Files>
+      <File FileName="Arduino-Com\ArduinoComWindow.cs" Line="21" Column="11" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <AuthorInfo Name="Ian Thomas" Email="toxicbakery@gmail.com" Copyright="Toxic Bakery" Company="Toxic Bakery" Trademark="" />
+</Properties>
