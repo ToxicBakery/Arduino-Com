@@ -32,7 +32,7 @@ public partial class ArduinoComWindow
 	private global::Gtk.Frame frameConsole;
 	private global::Gtk.Alignment GtkAlignment1;
 	private global::Gtk.VBox vbox2;
-	private global::Gtk.ScrolledWindow GtkScrolledWindow;
+	private global::Gtk.ScrolledWindow scrollWindowConsole;
 	private global::Gtk.TextView textviewConsole;
 	private global::Gtk.HBox hbox1;
 	private global::Gtk.VBox vbox6;
@@ -188,17 +188,17 @@ public partial class ArduinoComWindow
 		w8.Fill = false;
 		// Container child vbox11.Gtk.Box+BoxChild
 		this.comboboxBaudRate = global::Gtk.ComboBox.NewText ();
-		this.comboboxBaudRate.AppendText (global::Mono.Unix.Catalog.GetString ("300"));
-		this.comboboxBaudRate.AppendText (global::Mono.Unix.Catalog.GetString ("600"));
-		this.comboboxBaudRate.AppendText (global::Mono.Unix.Catalog.GetString ("1200"));
-		this.comboboxBaudRate.AppendText (global::Mono.Unix.Catalog.GetString ("2400"));
-		this.comboboxBaudRate.AppendText (global::Mono.Unix.Catalog.GetString ("4800"));
-		this.comboboxBaudRate.AppendText (global::Mono.Unix.Catalog.GetString ("9600"));
-		this.comboboxBaudRate.AppendText (global::Mono.Unix.Catalog.GetString ("14400"));
-		this.comboboxBaudRate.AppendText (global::Mono.Unix.Catalog.GetString ("19200"));
-		this.comboboxBaudRate.AppendText (global::Mono.Unix.Catalog.GetString ("28800"));
-		this.comboboxBaudRate.AppendText (global::Mono.Unix.Catalog.GetString ("38400"));
-		this.comboboxBaudRate.AppendText (global::Mono.Unix.Catalog.GetString ("57600"));
+		this.comboboxBaudRate.AppendText (global::Mono.Unix.Catalog.GetString ("300\r"));
+		this.comboboxBaudRate.AppendText (global::Mono.Unix.Catalog.GetString ("600\r"));
+		this.comboboxBaudRate.AppendText (global::Mono.Unix.Catalog.GetString ("1200\r"));
+		this.comboboxBaudRate.AppendText (global::Mono.Unix.Catalog.GetString ("2400\r"));
+		this.comboboxBaudRate.AppendText (global::Mono.Unix.Catalog.GetString ("4800\r"));
+		this.comboboxBaudRate.AppendText (global::Mono.Unix.Catalog.GetString ("9600\r"));
+		this.comboboxBaudRate.AppendText (global::Mono.Unix.Catalog.GetString ("14400\r"));
+		this.comboboxBaudRate.AppendText (global::Mono.Unix.Catalog.GetString ("19200\r"));
+		this.comboboxBaudRate.AppendText (global::Mono.Unix.Catalog.GetString ("28800\r"));
+		this.comboboxBaudRate.AppendText (global::Mono.Unix.Catalog.GetString ("38400\r"));
+		this.comboboxBaudRate.AppendText (global::Mono.Unix.Catalog.GetString ("57600\r"));
 		this.comboboxBaudRate.AppendText (global::Mono.Unix.Catalog.GetString ("115200"));
 		this.comboboxBaudRate.WidthRequest = 110;
 		this.comboboxBaudRate.Name = "comboboxBaudRate";
@@ -299,17 +299,18 @@ public partial class ArduinoComWindow
 		this.vbox2.Name = "vbox2";
 		this.vbox2.Spacing = 6;
 		// Container child vbox2.Gtk.Box+BoxChild
-		this.GtkScrolledWindow = new global::Gtk.ScrolledWindow ();
-		this.GtkScrolledWindow.Name = "GtkScrolledWindow";
-		this.GtkScrolledWindow.VscrollbarPolicy = ((global::Gtk.PolicyType)(0));
-		this.GtkScrolledWindow.ShadowType = ((global::Gtk.ShadowType)(1));
-		// Container child GtkScrolledWindow.Gtk.Container+ContainerChild
+		this.scrollWindowConsole = new global::Gtk.ScrolledWindow ();
+		this.scrollWindowConsole.Name = "scrollWindowConsole";
+		this.scrollWindowConsole.VscrollbarPolicy = ((global::Gtk.PolicyType)(0));
+		this.scrollWindowConsole.ShadowType = ((global::Gtk.ShadowType)(1));
+		// Container child scrollWindowConsole.Gtk.Container+ContainerChild
 		this.textviewConsole = new global::Gtk.TextView ();
 		this.textviewConsole.CanFocus = true;
 		this.textviewConsole.Name = "textviewConsole";
-		this.GtkScrolledWindow.Add (this.textviewConsole);
-		this.vbox2.Add (this.GtkScrolledWindow);
-		global::Gtk.Box.BoxChild w20 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.GtkScrolledWindow]));
+		this.textviewConsole.Editable = false;
+		this.scrollWindowConsole.Add (this.textviewConsole);
+		this.vbox2.Add (this.scrollWindowConsole);
+		global::Gtk.Box.BoxChild w20 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.scrollWindowConsole]));
 		w20.Position = 0;
 		// Container child vbox2.Gtk.Box+BoxChild
 		this.hbox1 = new global::Gtk.HBox ();
@@ -357,11 +358,11 @@ public partial class ArduinoComWindow
 		this.hbox11.Spacing = 6;
 		// Container child hbox11.Gtk.Box+BoxChild
 		this.comboboxSendType = global::Gtk.ComboBox.NewText ();
-		this.comboboxSendType.AppendText (global::Mono.Unix.Catalog.GetString ("String"));
-		this.comboboxSendType.AppendText (global::Mono.Unix.Catalog.GetString ("Int"));
-		this.comboboxSendType.AppendText (global::Mono.Unix.Catalog.GetString ("Long"));
-		this.comboboxSendType.AppendText (global::Mono.Unix.Catalog.GetString ("Float"));
-		this.comboboxSendType.AppendText (global::Mono.Unix.Catalog.GetString ("Double"));
+		this.comboboxSendType.AppendText (global::Mono.Unix.Catalog.GetString ("String\r"));
+		this.comboboxSendType.AppendText (global::Mono.Unix.Catalog.GetString ("Int\r"));
+		this.comboboxSendType.AppendText (global::Mono.Unix.Catalog.GetString ("Long\r"));
+		this.comboboxSendType.AppendText (global::Mono.Unix.Catalog.GetString ("Float\r"));
+		this.comboboxSendType.AppendText (global::Mono.Unix.Catalog.GetString ("Double\r"));
 		this.comboboxSendType.AppendText (global::Mono.Unix.Catalog.GetString ("Byte Array"));
 		this.comboboxSendType.CanDefault = true;
 		this.comboboxSendType.Name = "comboboxSendType";
@@ -618,7 +619,7 @@ public partial class ArduinoComWindow
 			this.Child.ShowAll ();
 		}
 		this.DefaultWidth = 576;
-		this.DefaultHeight = 569;
+		this.DefaultHeight = 550;
 		this.comboboxSendType.HasDefault = true;
 		this.Show ();
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);

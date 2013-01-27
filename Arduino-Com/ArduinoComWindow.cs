@@ -5,21 +5,21 @@ using System.Reflection;
 using System.IO.Ports;
 using System.Threading;
 using System.Text;
+using Gdk;
 
 public partial class ArduinoComWindow: Gtk.Window
 {	
-	private static Gdk.Atom _atom = Gdk.Atom.Intern("CLIPBOARD", false);
-
-	private Gtk.Clipboard mClipBoard = Gtk.Clipboard.Get(_atom);
+	private static Gdk.Atom _atom = Gdk.Atom.Intern ("CLIPBOARD", false);
+	private Gtk.Clipboard mClipBoard = Gtk.Clipboard.Get (_atom);
 	private Encoding mEncoding;
 	private SerialPort mSerialPort;
 	private Thread mConnectionThread;
+	private Boolean isReading;
 
 	public ArduinoComWindow (): base (Gtk.WindowType.Toplevel)
 	{
 		Build ();
 		Init ();
-		ShowError ("test");
 	}
 
 	//
@@ -53,8 +53,8 @@ public partial class ArduinoComWindow: Gtk.Window
 				// Open the port
 				int baudRate = Int32.Parse (comboboxBaudRate.ActiveText);
 				mSerialPort = new SerialPort (comboboxPorts.ActiveText, baudRate);
+				mSerialPort.DataReceived += DataReceivedHandler;
 				mSerialPort.Open ();
-				mSerialPort.DataReceived += OnDataReceived;
 
 				// Notify user
 				UpdateConsole ("Connected to " + comboboxPorts.ActiveText + " at " + baudRate);
@@ -68,6 +68,33 @@ public partial class ArduinoComWindow: Gtk.Window
 		}
 	}
 
+	private void DataReceivedHandler (object sender, EventArgs e)
+	{
+		if (!isReading) {
+			isReading = true;
+			mConnectionThread = new Thread (new ThreadStart (MonitorData));
+			mConnectionThread.Start ();
+		}
+	}
+
+	private void MonitorData ()
+	{
+		try {
+			// Read the data to a string
+			String received = "";
+			while (mSerialPort.BytesToRead > 0)
+				received += mSerialPort.ReadLine ();
+
+			// Notify GTK to update the console
+			Gtk.Application.Invoke (delegate {
+				textviewConsole.Buffer.Text += received;
+				ScrollToEnd();
+			});
+		} catch (Exception) {
+		}
+		isReading = false;
+	}
+
 	protected void OnButtonDisconnectClicked (object sender, EventArgs e)
 	{
 		Disconnect ();
@@ -76,15 +103,6 @@ public partial class ArduinoComWindow: Gtk.Window
 	protected void OnButtonRefreshClicked (object sender, EventArgs e)
 	{
 		UpdateComPorts ();
-	}
-
-	protected void OnDataReceived (object sender, SerialDataReceivedEventArgs e)
-	{
-		String received = "";
-		while (mSerialPort.BytesToRead > 0)
-			received += mSerialPort.ReadExisting ();
-
-		UpdateConsole (received);
 	}
 
 	protected void OnButtonSendMessageClicked (object sender, EventArgs e)
@@ -191,12 +209,12 @@ public partial class ArduinoComWindow: Gtk.Window
 
 	protected void OnButtonClearConsoleClicked (object sender, EventArgs e)
 	{
-		textviewConsole.Buffer.Clear();
+		textviewConsole.Buffer.Clear ();
 	}
 
 	protected void OnButtonCopyConsoleClicked (object sender, EventArgs e)
 	{
-		mClipBoard.SetText(textviewConsole.Buffer.Text);
+		mClipBoard.SetText (textviewConsole.Buffer.Text);
 	}
 
 	//
@@ -222,10 +240,19 @@ public partial class ArduinoComWindow: Gtk.Window
 
 	private void Init ()
 	{
+		textviewConsole.Buffer.Changed += ConsoleUpdated;
 		mEncoding = new System.Text.ASCIIEncoding ();
 		UpdateComPorts ();
 		UpdateGUI ();
 	}
+
+	private void ConsoleUpdated (object sender, EventArgs e)
+	{
+		Gtk.Application.Invoke (delegate {
+			ScrollToEnd();
+		});
+	}
+
 
 	private Boolean IsConnected ()
 	{
@@ -241,7 +268,7 @@ public partial class ArduinoComWindow: Gtk.Window
 
 		foreach (String port in SerialPort.GetPortNames())
 			if (!port.ToString ().Trim ().Equals (""))
-				comboboxPorts.PrependText (port.ToString ().Trim ());
+				comboboxPorts.AppendText (port.ToString ().Trim ());
 
 		comboboxPorts.Active = 0;
 		buttonConnect.Sensitive = comboboxPorts.Active != -1;
@@ -272,6 +299,14 @@ public partial class ArduinoComWindow: Gtk.Window
 		Disconnect ();
 		Application.Quit ();
 		Environment.Exit (0);
-	}
+	}
+
+	private void ScrollToEnd ()
+	{
+		if (!checkboxAutoScroll.Active)
+			return;
+
+		textviewConsole.ScrollToIter(textviewConsole.Buffer.EndIter, 0, true, 0, 0);
+	}
 
 }
