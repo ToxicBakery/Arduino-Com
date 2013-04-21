@@ -109,8 +109,10 @@ public partial class ArduinoComWindow: Gtk.Window
 	{
 		byte[] sendBytes = null;
 		Exception parseException = null;
+		String msgType = comboboxSendType.ActiveText.Trim();
+
 		try {
-			switch (comboboxSendType.ActiveText) {
+			switch (msgType) {
 			case "Byte Array":
 				// Send a byte array. ie 0xFF 0x81 (Int16 -127)
 				String[] bytes = entrySend.Text.Split (' ');
@@ -196,7 +198,7 @@ public partial class ArduinoComWindow: Gtk.Window
 			try {
 				mSerialPort.Write (sendBytes, 0, sendBytes.Length);
 				if (checkboxShowSends.Active)
-					UpdateConsole ("SEND MSG: " + entrySend.Text);
+					UpdateConsole ("SEND " + msgType +": " + entrySend.Text);
 				
 				if (checkboxClearInputOnSend.Active)
 					entrySend.Text = "";
