@@ -216,7 +216,7 @@ public partial class ArduinoComWindow: Gtk.Window
 
 	protected void OnButtonCopyConsoleClicked (object sender, EventArgs e)
 	{
-		mClipBoard.SetText (textviewConsole.Buffer.Text);
+		mClipBoard.Text = textviewConsole.Buffer.Text;
 	}
 
 	//
