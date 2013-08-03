@@ -282,6 +282,9 @@ public partial class ArduinoComWindow: Gtk.Window
 
 	[GLib.ConnectBefore]
 	private void EnterKeyEvent(object sender, Gtk.KeyPressEventArgs e) {
+		if (!checkboxSendOnEnter.Active)
+			return;
+
 		if (e.Event.Key == Gdk.Key.Return) {
 			OnButtonSendMessageClicked (sender, e);
 			e.RetVal = true;

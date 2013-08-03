@@ -26,7 +26,7 @@ public partial class ArduinoComWindow
 	private global::Gtk.Button buttonConnect;
 	private global::Gtk.Button buttonDisconnect;
 	private global::Gtk.Button buttonRefresh;
-	private global::Gtk.Label GtkLabel4;
+	private global::Gtk.Label GtkLabel5;
 	private global::Gtk.VBox vbox5;
 	private global::Gtk.Frame frameConsole;
 	private global::Gtk.Alignment GtkAlignment1;
@@ -35,15 +35,17 @@ public partial class ArduinoComWindow
 	private global::Gtk.TextView textviewConsole;
 	private global::Gtk.HBox hbox1;
 	private global::Gtk.VBox vbox6;
-	private global::Gtk.HBox hbox12;
+	private global::Gtk.Frame frame4;
 	private global::Gtk.VBox vbox12;
+	private global::Gtk.HBox hbox12;
+	private global::Gtk.VBox vbox13;
 	private global::Gtk.Entry entrySend;
 	private global::Gtk.HBox hbox3;
-	private global::Gtk.HBox hbox11;
 	private global::Gtk.ComboBox comboboxSendType;
 	private global::Gtk.Button buttonSendMessage;
 	private global::Gtk.Button buttonCopyConsole;
 	private global::Gtk.Button buttonClearConsole;
+	private global::Gtk.Label GtkLabel18;
 	private global::Gtk.HBox hbox4;
 	private global::Gtk.Frame frame1;
 	private global::Gtk.Alignment GtkAlignment2;
@@ -55,16 +57,15 @@ public partial class ArduinoComWindow
 	private global::Gtk.CheckButton checkboxUseTrailingByte;
 	private global::Gtk.Entry entryTrailingByte;
 	private global::Gtk.CheckButton checkboxClearInputOnSend;
-	private global::Gtk.Label GtkLabel11;
+	private global::Gtk.CheckButton checkboxSendOnEnter;
+	private global::Gtk.Label GtkLabel12;
 	private global::Gtk.Frame frame2;
 	private global::Gtk.Alignment GtkAlignment3;
 	private global::Gtk.VBox vbox8;
-	private global::Gtk.HBox hbox8;
 	private global::Gtk.CheckButton checkboxShowSends;
-	private global::Gtk.HBox hbox9;
 	private global::Gtk.CheckButton checkboxAutoScroll;
-	private global::Gtk.Label GtkLabel14;
-	private global::Gtk.Label GtkLabel15;
+	private global::Gtk.Label GtkLabel16;
+	private global::Gtk.Label GtkLabel17;
 
 	protected virtual void Build ()
 	{
@@ -267,11 +268,11 @@ public partial class ArduinoComWindow
 		w15.Fill = false;
 		this.GtkAlignment.Add (this.vbox3);
 		this.frame3.Add (this.GtkAlignment);
-		this.GtkLabel4 = new global::Gtk.Label ();
-		this.GtkLabel4.Name = "GtkLabel4";
-		this.GtkLabel4.LabelProp = global::Mono.Unix.Catalog.GetString ("Connection");
-		this.GtkLabel4.UseMarkup = true;
-		this.frame3.LabelWidget = this.GtkLabel4;
+		this.GtkLabel5 = new global::Gtk.Label ();
+		this.GtkLabel5.Name = "GtkLabel5";
+		this.GtkLabel5.LabelProp = global::Mono.Unix.Catalog.GetString ("Connection");
+		this.GtkLabel5.UseMarkup = true;
+		this.frame3.LabelWidget = this.GtkLabel5;
 		this.hbox2.Add (this.frame3);
 		global::Gtk.Box.BoxChild w18 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.frame3]));
 		w18.Position = 0;
@@ -284,7 +285,6 @@ public partial class ArduinoComWindow
 		this.vbox5.Spacing = 6;
 		// Container child vbox5.Gtk.Box+BoxChild
 		this.frameConsole = new global::Gtk.Frame ();
-		this.frameConsole.Sensitive = false;
 		this.frameConsole.Name = "frameConsole";
 		// Container child frameConsole.Gtk.Container+ContainerChild
 		this.GtkAlignment1 = new global::Gtk.Alignment (0F, 0F, 1F, 1F);
@@ -320,42 +320,45 @@ public partial class ArduinoComWindow
 		this.vbox6.Name = "vbox6";
 		this.vbox6.Spacing = 6;
 		// Container child vbox6.Gtk.Box+BoxChild
-		this.hbox12 = new global::Gtk.HBox ();
-		this.hbox12.Name = "hbox12";
-		this.hbox12.Spacing = 6;
-		// Container child hbox12.Gtk.Box+BoxChild
+		this.frame4 = new global::Gtk.Frame ();
+		this.frame4.Name = "frame4";
+		// Container child frame4.Gtk.Container+ContainerChild
 		this.vbox12 = new global::Gtk.VBox ();
 		this.vbox12.Name = "vbox12";
 		this.vbox12.Spacing = 6;
 		// Container child vbox12.Gtk.Box+BoxChild
+		this.hbox12 = new global::Gtk.HBox ();
+		this.hbox12.Name = "hbox12";
+		this.hbox12.Spacing = 6;
+		// Container child hbox12.Gtk.Box+BoxChild
+		this.vbox13 = new global::Gtk.VBox ();
+		this.vbox13.Name = "vbox13";
+		this.vbox13.Spacing = 6;
+		// Container child vbox13.Gtk.Box+BoxChild
 		this.entrySend = new global::Gtk.Entry ();
 		this.entrySend.TooltipMarkup = "Input";
 		this.entrySend.CanFocus = true;
 		this.entrySend.Name = "entrySend";
 		this.entrySend.IsEditable = true;
 		this.entrySend.InvisibleChar = '•';
-		this.vbox12.Add (this.entrySend);
-		global::Gtk.Box.BoxChild w21 = ((global::Gtk.Box.BoxChild)(this.vbox12 [this.entrySend]));
+		this.vbox13.Add (this.entrySend);
+		global::Gtk.Box.BoxChild w21 = ((global::Gtk.Box.BoxChild)(this.vbox13 [this.entrySend]));
 		w21.Position = 0;
 		w21.Expand = false;
 		w21.Fill = false;
-		this.hbox12.Add (this.vbox12);
-		global::Gtk.Box.BoxChild w22 = ((global::Gtk.Box.BoxChild)(this.hbox12 [this.vbox12]));
+		this.hbox12.Add (this.vbox13);
+		global::Gtk.Box.BoxChild w22 = ((global::Gtk.Box.BoxChild)(this.hbox12 [this.vbox13]));
 		w22.Position = 0;
-		this.vbox6.Add (this.hbox12);
-		global::Gtk.Box.BoxChild w23 = ((global::Gtk.Box.BoxChild)(this.vbox6 [this.hbox12]));
+		this.vbox12.Add (this.hbox12);
+		global::Gtk.Box.BoxChild w23 = ((global::Gtk.Box.BoxChild)(this.vbox12 [this.hbox12]));
 		w23.Position = 0;
 		w23.Expand = false;
 		w23.Fill = false;
-		// Container child vbox6.Gtk.Box+BoxChild
+		// Container child vbox12.Gtk.Box+BoxChild
 		this.hbox3 = new global::Gtk.HBox ();
 		this.hbox3.Name = "hbox3";
 		this.hbox3.Spacing = 6;
 		// Container child hbox3.Gtk.Box+BoxChild
-		this.hbox11 = new global::Gtk.HBox ();
-		this.hbox11.Name = "hbox11";
-		this.hbox11.Spacing = 6;
-		// Container child hbox11.Gtk.Box+BoxChild
 		this.comboboxSendType = global::Gtk.ComboBox.NewText ();
 		this.comboboxSendType.AppendText (global::Mono.Unix.Catalog.GetString ("String"));
 		this.comboboxSendType.AppendText (global::Mono.Unix.Catalog.GetString ("Int"));
@@ -366,16 +369,12 @@ public partial class ArduinoComWindow
 		this.comboboxSendType.CanDefault = true;
 		this.comboboxSendType.Name = "comboboxSendType";
 		this.comboboxSendType.Active = 0;
-		this.hbox11.Add (this.comboboxSendType);
-		global::Gtk.Box.BoxChild w24 = ((global::Gtk.Box.BoxChild)(this.hbox11 [this.comboboxSendType]));
+		this.hbox3.Add (this.comboboxSendType);
+		global::Gtk.Box.BoxChild w24 = ((global::Gtk.Box.BoxChild)(this.hbox3 [this.comboboxSendType]));
 		w24.Position = 0;
 		w24.Expand = false;
 		w24.Fill = false;
-		this.hbox3.Add (this.hbox11);
-		global::Gtk.Box.BoxChild w25 = ((global::Gtk.Box.BoxChild)(this.hbox3 [this.hbox11]));
-		w25.Position = 0;
-		w25.Expand = false;
-		w25.Fill = false;
+		w24.Padding = ((uint)(3));
 		// Container child hbox3.Gtk.Box+BoxChild
 		this.buttonSendMessage = new global::Gtk.Button ();
 		this.buttonSendMessage.CanFocus = true;
@@ -383,10 +382,11 @@ public partial class ArduinoComWindow
 		this.buttonSendMessage.UseUnderline = true;
 		this.buttonSendMessage.Label = global::Mono.Unix.Catalog.GetString ("Send Message");
 		this.hbox3.Add (this.buttonSendMessage);
-		global::Gtk.Box.BoxChild w26 = ((global::Gtk.Box.BoxChild)(this.hbox3 [this.buttonSendMessage]));
-		w26.Position = 1;
-		w26.Expand = false;
-		w26.Fill = false;
+		global::Gtk.Box.BoxChild w25 = ((global::Gtk.Box.BoxChild)(this.hbox3 [this.buttonSendMessage]));
+		w25.Position = 1;
+		w25.Expand = false;
+		w25.Fill = false;
+		w25.Padding = ((uint)(3));
 		// Container child hbox3.Gtk.Box+BoxChild
 		this.buttonCopyConsole = new global::Gtk.Button ();
 		this.buttonCopyConsole.CanFocus = true;
@@ -394,10 +394,11 @@ public partial class ArduinoComWindow
 		this.buttonCopyConsole.UseUnderline = true;
 		this.buttonCopyConsole.Label = global::Mono.Unix.Catalog.GetString ("Copy Console");
 		this.hbox3.Add (this.buttonCopyConsole);
-		global::Gtk.Box.BoxChild w27 = ((global::Gtk.Box.BoxChild)(this.hbox3 [this.buttonCopyConsole]));
-		w27.Position = 2;
-		w27.Expand = false;
-		w27.Fill = false;
+		global::Gtk.Box.BoxChild w26 = ((global::Gtk.Box.BoxChild)(this.hbox3 [this.buttonCopyConsole]));
+		w26.Position = 2;
+		w26.Expand = false;
+		w26.Fill = false;
+		w26.Padding = ((uint)(3));
 		// Container child hbox3.Gtk.Box+BoxChild
 		this.buttonClearConsole = new global::Gtk.Button ();
 		this.buttonClearConsole.CanFocus = true;
@@ -405,15 +406,26 @@ public partial class ArduinoComWindow
 		this.buttonClearConsole.UseUnderline = true;
 		this.buttonClearConsole.Label = global::Mono.Unix.Catalog.GetString ("Clear Console");
 		this.hbox3.Add (this.buttonClearConsole);
-		global::Gtk.Box.BoxChild w28 = ((global::Gtk.Box.BoxChild)(this.hbox3 [this.buttonClearConsole]));
-		w28.Position = 3;
+		global::Gtk.Box.BoxChild w27 = ((global::Gtk.Box.BoxChild)(this.hbox3 [this.buttonClearConsole]));
+		w27.Position = 3;
+		w27.Expand = false;
+		w27.Fill = false;
+		w27.Padding = ((uint)(3));
+		this.vbox12.Add (this.hbox3);
+		global::Gtk.Box.BoxChild w28 = ((global::Gtk.Box.BoxChild)(this.vbox12 [this.hbox3]));
+		w28.Position = 1;
 		w28.Expand = false;
 		w28.Fill = false;
-		this.vbox6.Add (this.hbox3);
-		global::Gtk.Box.BoxChild w29 = ((global::Gtk.Box.BoxChild)(this.vbox6 [this.hbox3]));
-		w29.Position = 1;
-		w29.Expand = false;
-		w29.Fill = false;
+		w28.Padding = ((uint)(3));
+		this.frame4.Add (this.vbox12);
+		this.GtkLabel18 = new global::Gtk.Label ();
+		this.GtkLabel18.Name = "GtkLabel18";
+		this.GtkLabel18.LabelProp = global::Mono.Unix.Catalog.GetString ("Console Entry");
+		this.GtkLabel18.UseMarkup = true;
+		this.frame4.LabelWidget = this.GtkLabel18;
+		this.vbox6.Add (this.frame4);
+		global::Gtk.Box.BoxChild w30 = ((global::Gtk.Box.BoxChild)(this.vbox6 [this.frame4]));
+		w30.Position = 0;
 		// Container child vbox6.Gtk.Box+BoxChild
 		this.hbox4 = new global::Gtk.HBox ();
 		this.hbox4.Name = "hbox4";
@@ -421,7 +433,6 @@ public partial class ArduinoComWindow
 		// Container child hbox4.Gtk.Box+BoxChild
 		this.frame1 = new global::Gtk.Frame ();
 		this.frame1.Name = "frame1";
-		this.frame1.ShadowType = ((global::Gtk.ShadowType)(0));
 		// Container child frame1.Gtk.Container+ContainerChild
 		this.GtkAlignment2 = new global::Gtk.Alignment (0F, 0F, 1F, 1F);
 		this.GtkAlignment2.Name = "GtkAlignment2";
@@ -442,8 +453,8 @@ public partial class ArduinoComWindow
 		this.checkboxUseLeadingByte.DrawIndicator = true;
 		this.checkboxUseLeadingByte.UseUnderline = true;
 		this.hbox5.Add (this.checkboxUseLeadingByte);
-		global::Gtk.Box.BoxChild w30 = ((global::Gtk.Box.BoxChild)(this.hbox5 [this.checkboxUseLeadingByte]));
-		w30.Position = 0;
+		global::Gtk.Box.BoxChild w31 = ((global::Gtk.Box.BoxChild)(this.hbox5 [this.checkboxUseLeadingByte]));
+		w31.Position = 0;
 		// Container child hbox5.Gtk.Box+BoxChild
 		this.entryLeadingByte = new global::Gtk.Entry ();
 		this.entryLeadingByte.CanFocus = true;
@@ -454,15 +465,15 @@ public partial class ArduinoComWindow
 		this.entryLeadingByte.MaxLength = 4;
 		this.entryLeadingByte.InvisibleChar = '•';
 		this.hbox5.Add (this.entryLeadingByte);
-		global::Gtk.Box.BoxChild w31 = ((global::Gtk.Box.BoxChild)(this.hbox5 [this.entryLeadingByte]));
-		w31.Position = 1;
-		w31.Expand = false;
-		w31.Fill = false;
-		this.vbox7.Add (this.hbox5);
-		global::Gtk.Box.BoxChild w32 = ((global::Gtk.Box.BoxChild)(this.vbox7 [this.hbox5]));
-		w32.Position = 0;
+		global::Gtk.Box.BoxChild w32 = ((global::Gtk.Box.BoxChild)(this.hbox5 [this.entryLeadingByte]));
+		w32.Position = 1;
 		w32.Expand = false;
 		w32.Fill = false;
+		this.vbox7.Add (this.hbox5);
+		global::Gtk.Box.BoxChild w33 = ((global::Gtk.Box.BoxChild)(this.vbox7 [this.hbox5]));
+		w33.Position = 0;
+		w33.Expand = false;
+		w33.Fill = false;
 		// Container child vbox7.Gtk.Box+BoxChild
 		this.hbox6 = new global::Gtk.HBox ();
 		this.hbox6.Name = "hbox6";
@@ -475,8 +486,8 @@ public partial class ArduinoComWindow
 		this.checkboxUseTrailingByte.DrawIndicator = true;
 		this.checkboxUseTrailingByte.UseUnderline = true;
 		this.hbox6.Add (this.checkboxUseTrailingByte);
-		global::Gtk.Box.BoxChild w33 = ((global::Gtk.Box.BoxChild)(this.hbox6 [this.checkboxUseTrailingByte]));
-		w33.Position = 0;
+		global::Gtk.Box.BoxChild w34 = ((global::Gtk.Box.BoxChild)(this.hbox6 [this.checkboxUseTrailingByte]));
+		w34.Position = 0;
 		// Container child hbox6.Gtk.Box+BoxChild
 		this.entryTrailingByte = new global::Gtk.Entry ();
 		this.entryTrailingByte.CanFocus = true;
@@ -487,15 +498,15 @@ public partial class ArduinoComWindow
 		this.entryTrailingByte.MaxLength = 4;
 		this.entryTrailingByte.InvisibleChar = '•';
 		this.hbox6.Add (this.entryTrailingByte);
-		global::Gtk.Box.BoxChild w34 = ((global::Gtk.Box.BoxChild)(this.hbox6 [this.entryTrailingByte]));
-		w34.Position = 1;
-		w34.Expand = false;
-		w34.Fill = false;
-		this.vbox7.Add (this.hbox6);
-		global::Gtk.Box.BoxChild w35 = ((global::Gtk.Box.BoxChild)(this.vbox7 [this.hbox6]));
+		global::Gtk.Box.BoxChild w35 = ((global::Gtk.Box.BoxChild)(this.hbox6 [this.entryTrailingByte]));
 		w35.Position = 1;
 		w35.Expand = false;
 		w35.Fill = false;
+		this.vbox7.Add (this.hbox6);
+		global::Gtk.Box.BoxChild w36 = ((global::Gtk.Box.BoxChild)(this.vbox7 [this.hbox6]));
+		w36.Position = 1;
+		w36.Expand = false;
+		w36.Fill = false;
 		// Container child vbox7.Gtk.Box+BoxChild
 		this.checkboxClearInputOnSend = new global::Gtk.CheckButton ();
 		this.checkboxClearInputOnSend.CanFocus = true;
@@ -504,26 +515,38 @@ public partial class ArduinoComWindow
 		this.checkboxClearInputOnSend.DrawIndicator = true;
 		this.checkboxClearInputOnSend.UseUnderline = true;
 		this.vbox7.Add (this.checkboxClearInputOnSend);
-		global::Gtk.Box.BoxChild w36 = ((global::Gtk.Box.BoxChild)(this.vbox7 [this.checkboxClearInputOnSend]));
-		w36.Position = 2;
-		w36.Expand = false;
-		w36.Fill = false;
+		global::Gtk.Box.BoxChild w37 = ((global::Gtk.Box.BoxChild)(this.vbox7 [this.checkboxClearInputOnSend]));
+		w37.Position = 2;
+		w37.Expand = false;
+		w37.Fill = false;
+		// Container child vbox7.Gtk.Box+BoxChild
+		this.checkboxSendOnEnter = new global::Gtk.CheckButton ();
+		this.checkboxSendOnEnter.CanFocus = true;
+		this.checkboxSendOnEnter.Name = "checkboxSendOnEnter";
+		this.checkboxSendOnEnter.Label = global::Mono.Unix.Catalog.GetString ("Send On Enter");
+		this.checkboxSendOnEnter.Active = true;
+		this.checkboxSendOnEnter.DrawIndicator = true;
+		this.checkboxSendOnEnter.UseUnderline = true;
+		this.vbox7.Add (this.checkboxSendOnEnter);
+		global::Gtk.Box.BoxChild w38 = ((global::Gtk.Box.BoxChild)(this.vbox7 [this.checkboxSendOnEnter]));
+		w38.Position = 3;
+		w38.Expand = false;
+		w38.Fill = false;
 		this.GtkAlignment2.Add (this.vbox7);
 		this.frame1.Add (this.GtkAlignment2);
-		this.GtkLabel11 = new global::Gtk.Label ();
-		this.GtkLabel11.Name = "GtkLabel11";
-		this.GtkLabel11.LabelProp = global::Mono.Unix.Catalog.GetString ("Send Options");
-		this.GtkLabel11.UseMarkup = true;
-		this.frame1.LabelWidget = this.GtkLabel11;
+		this.GtkLabel12 = new global::Gtk.Label ();
+		this.GtkLabel12.Name = "GtkLabel12";
+		this.GtkLabel12.LabelProp = global::Mono.Unix.Catalog.GetString ("Send Options");
+		this.GtkLabel12.UseMarkup = true;
+		this.frame1.LabelWidget = this.GtkLabel12;
 		this.hbox4.Add (this.frame1);
-		global::Gtk.Box.BoxChild w39 = ((global::Gtk.Box.BoxChild)(this.hbox4 [this.frame1]));
-		w39.Position = 0;
-		w39.Expand = false;
-		w39.Fill = false;
+		global::Gtk.Box.BoxChild w41 = ((global::Gtk.Box.BoxChild)(this.hbox4 [this.frame1]));
+		w41.Position = 0;
+		w41.Expand = false;
+		w41.Fill = false;
 		// Container child hbox4.Gtk.Box+BoxChild
 		this.frame2 = new global::Gtk.Frame ();
 		this.frame2.Name = "frame2";
-		this.frame2.ShadowType = ((global::Gtk.ShadowType)(0));
 		// Container child frame2.Gtk.Container+ContainerChild
 		this.GtkAlignment3 = new global::Gtk.Alignment (0F, 0F, 1F, 1F);
 		this.GtkAlignment3.Name = "GtkAlignment3";
@@ -533,10 +556,6 @@ public partial class ArduinoComWindow
 		this.vbox8.Name = "vbox8";
 		this.vbox8.Spacing = 6;
 		// Container child vbox8.Gtk.Box+BoxChild
-		this.hbox8 = new global::Gtk.HBox ();
-		this.hbox8.Name = "hbox8";
-		this.hbox8.Spacing = 6;
-		// Container child hbox8.Gtk.Box+BoxChild
 		this.checkboxShowSends = new global::Gtk.CheckButton ();
 		this.checkboxShowSends.CanFocus = true;
 		this.checkboxShowSends.Name = "checkboxShowSends";
@@ -544,19 +563,12 @@ public partial class ArduinoComWindow
 		this.checkboxShowSends.Active = true;
 		this.checkboxShowSends.DrawIndicator = true;
 		this.checkboxShowSends.UseUnderline = true;
-		this.hbox8.Add (this.checkboxShowSends);
-		global::Gtk.Box.BoxChild w40 = ((global::Gtk.Box.BoxChild)(this.hbox8 [this.checkboxShowSends]));
-		w40.Position = 0;
-		this.vbox8.Add (this.hbox8);
-		global::Gtk.Box.BoxChild w41 = ((global::Gtk.Box.BoxChild)(this.vbox8 [this.hbox8]));
-		w41.Position = 0;
-		w41.Expand = false;
-		w41.Fill = false;
+		this.vbox8.Add (this.checkboxShowSends);
+		global::Gtk.Box.BoxChild w42 = ((global::Gtk.Box.BoxChild)(this.vbox8 [this.checkboxShowSends]));
+		w42.Position = 0;
+		w42.Expand = false;
+		w42.Fill = false;
 		// Container child vbox8.Gtk.Box+BoxChild
-		this.hbox9 = new global::Gtk.HBox ();
-		this.hbox9.Name = "hbox9";
-		this.hbox9.Spacing = 6;
-		// Container child hbox9.Gtk.Box+BoxChild
 		this.checkboxAutoScroll = new global::Gtk.CheckButton ();
 		this.checkboxAutoScroll.CanFocus = true;
 		this.checkboxAutoScroll.Name = "checkboxAutoScroll";
@@ -564,29 +576,24 @@ public partial class ArduinoComWindow
 		this.checkboxAutoScroll.Active = true;
 		this.checkboxAutoScroll.DrawIndicator = true;
 		this.checkboxAutoScroll.UseUnderline = true;
-		this.hbox9.Add (this.checkboxAutoScroll);
-		global::Gtk.Box.BoxChild w42 = ((global::Gtk.Box.BoxChild)(this.hbox9 [this.checkboxAutoScroll]));
-		w42.Position = 0;
-		this.vbox8.Add (this.hbox9);
-		global::Gtk.Box.BoxChild w43 = ((global::Gtk.Box.BoxChild)(this.vbox8 [this.hbox9]));
+		this.vbox8.Add (this.checkboxAutoScroll);
+		global::Gtk.Box.BoxChild w43 = ((global::Gtk.Box.BoxChild)(this.vbox8 [this.checkboxAutoScroll]));
 		w43.Position = 1;
 		w43.Expand = false;
 		w43.Fill = false;
 		this.GtkAlignment3.Add (this.vbox8);
 		this.frame2.Add (this.GtkAlignment3);
-		this.GtkLabel14 = new global::Gtk.Label ();
-		this.GtkLabel14.Name = "GtkLabel14";
-		this.GtkLabel14.LabelProp = global::Mono.Unix.Catalog.GetString ("Console Options");
-		this.GtkLabel14.UseMarkup = true;
-		this.frame2.LabelWidget = this.GtkLabel14;
+		this.GtkLabel16 = new global::Gtk.Label ();
+		this.GtkLabel16.Name = "GtkLabel16";
+		this.GtkLabel16.LabelProp = global::Mono.Unix.Catalog.GetString ("Console Options");
+		this.GtkLabel16.UseMarkup = true;
+		this.frame2.LabelWidget = this.GtkLabel16;
 		this.hbox4.Add (this.frame2);
 		global::Gtk.Box.BoxChild w46 = ((global::Gtk.Box.BoxChild)(this.hbox4 [this.frame2]));
 		w46.Position = 1;
-		w46.Expand = false;
-		w46.Fill = false;
 		this.vbox6.Add (this.hbox4);
 		global::Gtk.Box.BoxChild w47 = ((global::Gtk.Box.BoxChild)(this.vbox6 [this.hbox4]));
-		w47.Position = 2;
+		w47.Position = 1;
 		w47.Expand = false;
 		w47.Fill = false;
 		this.hbox1.Add (this.vbox6);
@@ -599,11 +606,11 @@ public partial class ArduinoComWindow
 		w49.Fill = false;
 		this.GtkAlignment1.Add (this.vbox2);
 		this.frameConsole.Add (this.GtkAlignment1);
-		this.GtkLabel15 = new global::Gtk.Label ();
-		this.GtkLabel15.Name = "GtkLabel15";
-		this.GtkLabel15.LabelProp = global::Mono.Unix.Catalog.GetString ("Console");
-		this.GtkLabel15.UseMarkup = true;
-		this.frameConsole.LabelWidget = this.GtkLabel15;
+		this.GtkLabel17 = new global::Gtk.Label ();
+		this.GtkLabel17.Name = "GtkLabel17";
+		this.GtkLabel17.LabelProp = global::Mono.Unix.Catalog.GetString ("Console");
+		this.GtkLabel17.UseMarkup = true;
+		this.frameConsole.LabelWidget = this.GtkLabel17;
 		this.vbox5.Add (this.frameConsole);
 		global::Gtk.Box.BoxChild w52 = ((global::Gtk.Box.BoxChild)(this.vbox5 [this.frameConsole]));
 		w52.Position = 0;
@@ -617,8 +624,8 @@ public partial class ArduinoComWindow
 		if ((this.Child != null)) {
 			this.Child.ShowAll ();
 		}
-		this.DefaultWidth = 576;
-		this.DefaultHeight = 550;
+		this.DefaultWidth = 629;
+		this.DefaultHeight = 519;
 		this.comboboxSendType.HasDefault = true;
 		this.Show ();
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
