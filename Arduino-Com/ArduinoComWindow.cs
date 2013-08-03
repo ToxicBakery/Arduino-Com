@@ -8,6 +8,7 @@ using System.Text;
 using Gdk;
 using System.IO;
 using System.Threading.Tasks;
+using GLib;
 
 public partial class ArduinoComWindow: Gtk.Window
 {	
@@ -219,6 +220,7 @@ public partial class ArduinoComWindow: Gtk.Window
 	private void Init ()
 	{
 		textviewConsole.SizeAllocated += new SizeAllocatedHandler (ScrollToEnd);
+		entrySend.KeyPressEvent += new KeyPressEventHandler (EnterKeyEvent);
 		mEncoding = new System.Text.ASCIIEncoding ();
 		UpdateComPorts ();
 		UpdateGUI ();
@@ -276,6 +278,14 @@ public partial class ArduinoComWindow: Gtk.Window
 		Disconnect ();
 		Application.Quit ();
 		Environment.Exit (0);
+	}
+
+	[GLib.ConnectBefore]
+	private void EnterKeyEvent(object sender, Gtk.KeyPressEventArgs e) {
+		if (e.Event.Key == Gdk.Key.Return) {
+			OnButtonSendMessageClicked (sender, e);
+			e.RetVal = true;
+		}
 	}
 
 	private void ScrollToEnd(object sender, Gtk.SizeAllocatedArgs e) {
