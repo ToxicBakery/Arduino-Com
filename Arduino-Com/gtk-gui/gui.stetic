@@ -361,28 +361,17 @@
                                                 <property name="MemberName" />
                                                 <property name="Spacing">6</property>
                                                 <child>
-                                                  <widget class="Gtk.VBox" id="vbox13">
+                                                  <widget class="Gtk.Entry" id="entrySend">
                                                     <property name="MemberName" />
-                                                    <property name="Spacing">6</property>
-                                                    <child>
-                                                      <widget class="Gtk.Entry" id="entrySend">
-                                                        <property name="MemberName" />
-                                                        <property name="Tooltip" translatable="yes">Input</property>
-                                                        <property name="CanFocus">True</property>
-                                                        <property name="IsEditable">True</property>
-                                                        <property name="InvisibleChar">•</property>
-                                                      </widget>
-                                                      <packing>
-                                                        <property name="Position">0</property>
-                                                        <property name="AutoSize">True</property>
-                                                        <property name="Expand">False</property>
-                                                        <property name="Fill">False</property>
-                                                      </packing>
-                                                    </child>
+                                                    <property name="Tooltip" translatable="yes">Input</property>
+                                                    <property name="CanFocus">True</property>
+                                                    <property name="IsEditable">True</property>
+                                                    <property name="InvisibleChar">•</property>
                                                   </widget>
                                                   <packing>
                                                     <property name="Position">0</property>
                                                     <property name="AutoSize">True</property>
+                                                    <property name="Padding">3</property>
                                                   </packing>
                                                 </child>
                                               </widget>
@@ -391,6 +380,7 @@
                                                 <property name="AutoSize">True</property>
                                                 <property name="Expand">False</property>
                                                 <property name="Fill">False</property>
+                                                <property name="Padding">3</property>
                                               </packing>
                                             </child>
                                             <child>
@@ -638,7 +628,7 @@ Byte Array</property>
                                               </widget>
                                             </child>
                                             <child>
-                                              <widget class="Gtk.Label" id="GtkLabel12">
+                                              <widget class="Gtk.Label" id="GtkLabel13">
                                                 <property name="MemberName" />
                                                 <property name="LabelProp" translatable="yes">Send Options</property>
                                                 <property name="UseMarkup">True</property>
