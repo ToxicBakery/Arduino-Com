@@ -6,6 +6,8 @@ using System.IO.Ports;
 using System.Threading;
 using System.Text;
 using Gdk;
+using System.IO;
+using System.Threading.Tasks;
 
 public partial class ArduinoComWindow: Gtk.Window
 {	
@@ -13,19 +15,14 @@ public partial class ArduinoComWindow: Gtk.Window
 	private Gtk.Clipboard mClipBoard = Gtk.Clipboard.Get (_atom);
 	private Encoding mEncoding;
 	private SerialPort mSerialPort;
-	private Thread mConnectionThread;
-	private Boolean isReading;
-
 	public ArduinoComWindow (): base (Gtk.WindowType.Toplevel)
 	{
 		Build ();
 		Init ();
 	}
-
 	//
 	// EVENTS
 	//
-
 	protected void OnDeleteEvent (object sender, DeleteEventArgs a)
 	{
 		Quit ();
@@ -70,29 +67,13 @@ public partial class ArduinoComWindow: Gtk.Window
 
 	private void DataReceivedHandler (object sender, EventArgs e)
 	{
-		if (!isReading) {
-			isReading = true;
-			mConnectionThread = new Thread (new ThreadStart (MonitorData));
-			mConnectionThread.Start ();
-		}
-	}
-
-	private void MonitorData ()
-	{
-		try {
-			// Read the data to a string
-			String received = "";
-			while (mSerialPort.BytesToRead > 0)
-				received += mSerialPort.ReadLine ();
-
-			// Notify GTK to update the console
+		Task<string>.Run (() => {
+			string s = mSerialPort.ReadExisting ();
 			Gtk.Application.Invoke (delegate {
-				textviewConsole.Buffer.Text += received;
-				ScrollToEnd();
+				textviewConsole.Buffer.Text += s;
 			});
-		} catch (Exception) {
-		}
-		isReading = false;
+		});
+
 	}
 
 	protected void OnButtonDisconnectClicked (object sender, EventArgs e)
@@ -109,13 +90,13 @@ public partial class ArduinoComWindow: Gtk.Window
 	{
 		byte[] sendBytes = null;
 		Exception parseException = null;
-		String msgType = comboboxSendType.ActiveText.Trim();
+		string msgType = comboboxSendType.ActiveText.Trim ();
 
 		try {
 			switch (msgType) {
 			case "Byte Array":
 				// Send a byte array. ie 0xFF 0x81 (Int16 -127)
-				String[] bytes = entrySend.Text.Split (' ');
+				string[] bytes = entrySend.Text.Split (' ');
 				sendBytes = new Byte[bytes.Length];
 				for (int i = 0; i < bytes.Length; i++)
 					sendBytes [i] = Convert.ToByte (bytes [i], 16);
@@ -144,7 +125,7 @@ public partial class ArduinoComWindow: Gtk.Window
 				if (BitConverter.IsLittleEndian)
 					Array.Reverse (sendBytes);
 				break;
-			case "String":
+			case "string":
 			default:
 				sendBytes = mEncoding.GetBytes (entrySend.Text);
 				break;
@@ -198,7 +179,7 @@ public partial class ArduinoComWindow: Gtk.Window
 			try {
 				mSerialPort.Write (sendBytes, 0, sendBytes.Length);
 				if (checkboxShowSends.Active)
-					UpdateConsole ("SEND " + msgType +": " + entrySend.Text);
+					UpdateConsole ("SEND " + msgType + ": " + entrySend.Text);
 				
 				if (checkboxClearInputOnSend.Active)
 					entrySend.Text = "";
@@ -218,11 +199,9 @@ public partial class ArduinoComWindow: Gtk.Window
 	{
 		mClipBoard.Text = textviewConsole.Buffer.Text;
 	}
-
 	//
 	// PRIVATE METHODS
 	//
-
 	private void Disconnect ()
 	{
 		if (mSerialPort != null && mSerialPort.IsOpen) {
@@ -234,27 +213,16 @@ public partial class ArduinoComWindow: Gtk.Window
 			UpdateConsole ("Disconnected from " + mSerialPort.PortName);
 		}
 
-		if (mConnectionThread != null)
-			mConnectionThread.Join ();
-
 		UpdateGUI ();
 	}
 
 	private void Init ()
 	{
-		textviewConsole.Buffer.Changed += ConsoleUpdated;
+		textviewConsole.SizeAllocated += new SizeAllocatedHandler (ScrollToEnd);
 		mEncoding = new System.Text.ASCIIEncoding ();
 		UpdateComPorts ();
 		UpdateGUI ();
 	}
-
-	private void ConsoleUpdated (object sender, EventArgs e)
-	{
-		Gtk.Application.Invoke (delegate {
-			ScrollToEnd();
-		});
-	}
-
 
 	private Boolean IsConnected ()
 	{
@@ -263,22 +231,29 @@ public partial class ArduinoComWindow: Gtk.Window
 
 	private void UpdateComPorts ()
 	{
+		int currentlySelectedPort = comboboxPorts.Active;
 		while (comboboxPorts.Active != -1) {
 			comboboxPorts.RemoveText (0);
 			comboboxPorts.Active = 0;
 		}
 
-		foreach (String port in SerialPort.GetPortNames())
+		foreach (string port in SerialPort.GetPortNames())
 			if (!port.ToString ().Trim ().Equals (""))
 				comboboxPorts.AppendText (port.ToString ().Trim ());
 
 		comboboxPorts.Active = 0;
+		if (comboboxPorts.Model.IterNChildren () > currentlySelectedPort)
+			comboboxPorts.Active = currentlySelectedPort;
+
 		buttonConnect.Sensitive = comboboxPorts.Active != -1;
 	}
 
-	private void UpdateConsole (String msg)
+	private void UpdateConsole (string msg)
 	{
-		textviewConsole.Buffer.Text += msg + "\n";
+		if (!textviewConsole.Buffer.Text.EndsWith (Environment.NewLine) && textviewConsole.Buffer.Text.Length > 0)
+			textviewConsole.Buffer.Text += Environment.NewLine;
+
+		textviewConsole.Buffer.Text += msg + Environment.NewLine;
 	}
 
 	private void UpdateGUI ()
@@ -289,7 +264,7 @@ public partial class ArduinoComWindow: Gtk.Window
 		frameConsole.Sensitive = IsConnected ();
 	}
 
-	private void ShowError (String msg)
+	private void ShowError (string msg)
 	{
 		MessageDialog msgDialog = new MessageDialog (this, DialogFlags.DestroyWithParent, MessageType.Error, ButtonsType.Close, msg, "");
 		msgDialog.Run ();
@@ -303,12 +278,8 @@ public partial class ArduinoComWindow: Gtk.Window
 		Environment.Exit (0);
 	}
 
-	private void ScrollToEnd ()
-	{
-		if (!checkboxAutoScroll.Active)
-			return;
-
-		textviewConsole.ScrollToIter(textviewConsole.Buffer.EndIter, 0, true, 0, 0);
+	private void ScrollToEnd(object sender, Gtk.SizeAllocatedArgs e) {
+		textviewConsole.ScrollToIter (textviewConsole.Buffer.EndIter, 0, false, 0, 0);
 	}
 
 }

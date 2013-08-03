@@ -10,6 +10,7 @@
     <RootNamespace>ArduinoCom</RootNamespace>
     <AssemblyName>Arduino Com</AssemblyName>
     <ReleaseVersion>2.0.0</ReleaseVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>True</DebugSymbols>
